@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useOnboarding } from "@/context/OnboardingContext";
@@ -7,6 +6,12 @@ import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/com
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Trophy } from "lucide-react";
 import StepCarousel from "@/components/StepCarousel";
+
+const resourcesList = [
+  { label: "Official Documentation", href: "https://docs.thousandeyes.com/" },
+  { label: "How-To Guides", href: "https://www.thousandeyes.com/learning/telex/how-to" },
+  { label: "Best Practices", href: "https://www.thousandeyes.com/learning/telex/best-practices" },
+];
 
 const TaskDetail: React.FC = () => {
   const { taskId } = useParams<{ taskId: string }>();
@@ -51,7 +56,6 @@ const TaskDetail: React.FC = () => {
 
           <Card>
             <CardHeader>
-              {/* Removed "Step-by-Step Guide" heading */}
               <CardTitle className="flex items-center">
                 {task.completed && (
                   <Badge className="ml-2 bg-green-500">Completed</Badge>
@@ -63,6 +67,9 @@ const TaskDetail: React.FC = () => {
                 steps={task.steps}
                 onStepCheck={(stepId) => completeStep(task.id, stepId)}
                 showCheckbox
+                taskTitle={task.title}
+                resources={resourcesList}
+                stepImageWidthClass="w-full max-w-[680px]"
               />
 
               {!task.completed && (
@@ -105,6 +112,47 @@ const TaskDetail: React.FC = () => {
                   </div>
                 </div>
               )}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Additional Resources</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <ul className="list-disc pl-4 space-y-1">
+                {resourcesList.map((r) => (
+                  <li key={r.href}>
+                    <a
+                      href={r.href}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-700 underline hover:text-blue-900"
+                    >
+                      {r.label}
+                    </a>
+                  </li>
+                ))}
+              </ul>
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle>Your Progress</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex flex-col gap-2">
+                <span className="text-sm font-medium">Steps Completed</span>
+                <span>
+                  {
+                    task.steps.filter((step) => step.completed).length
+                  } / {task.steps.length}
+                </span>
+                <span className="text-xs text-gray-500 mt-2">
+                  Complete all steps to finish the task!
+                </span>
+              </div>
             </CardContent>
           </Card>
         </div>
