@@ -1,0 +1,156 @@
+
+import React from "react";
+import { useParams, Link, useNavigate } from "react-router-dom";
+import { useOnboarding } from "@/context/OnboardingContext";
+import { Button } from "@/components/ui/button";
+import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Badge } from "@/components/ui/badge";
+import { ArrowLeft, Trophy, Check, ImageIcon } from "lucide-react";
+
+const TaskDetail: React.FC = () => {
+  const { taskId } = useParams<{ taskId: string }>();
+  const navigate = useNavigate();
+  const { tasks, completeStep, completeTask } = useOnboarding();
+
+  const task = tasks.find(t => t.id === taskId);
+
+  if (!task) {
+    return (
+      <div className="container mx-auto px-4 py-8 text-center">
+        <h1 className="text-2xl font-bold mb-4">Task Not Found</h1>
+        <p className="mb-6">The task you are looking for does not exist.</p>
+        <Button asChild>
+          <Link to="/tasks">Return to Tasks</Link>
+        </Button>
+      </div>
+    );
+  }
+
+  const handleCompleteAll = () => {
+    completeTask(task.id);
+  };
+
+  return (
+    <div className="container mx-auto px-4 py-8 max-w-4xl">
+      <div className="flex items-center mb-6">
+        <Button variant="ghost" onClick={() => navigate(-1)} className="mr-4">
+          <ArrowLeft size={16} className="mr-2" /> Back
+        </Button>
+        <h1 className="text-3xl font-bold">{task.title}</h1>
+      </div>
+
+      <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
+        <div className="lg:col-span-2 space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Task Description</CardTitle>
+              <CardDescription className="text-base">{task.description}</CardDescription>
+            </CardHeader>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <span>Step-by-Step Guide</span>
+                {task.completed && (
+                  <Badge className="ml-2 bg-green-500">Completed</Badge>
+                )}
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="space-y-4">
+                {task.steps.map((step, index) => (
+                  <div key={step.id} className="flex items-start space-x-3">
+                    <div className="flex-shrink-0 mt-0.5">
+                      <Checkbox
+                        id={step.id}
+                        checked={step.completed}
+                        onCheckedChange={() => completeStep(task.id, step.id)}
+                        className="data-[state=checked]:bg-green-500"
+                      />
+                    </div>
+                    <div>
+                      <label
+                        htmlFor={step.id}
+                        className={`text-base font-medium ${
+                          step.completed ? "text-green-600" : ""
+                        }`}
+                      >
+                        Step {index + 1}: {step.description}
+                      </label>
+                    </div>
+                  </div>
+                ))}
+              </div>
+
+              {!task.completed && (
+                <div className="mt-8">
+                  <Button onClick={handleCompleteAll} className="w-full">
+                    <Check className="mr-2" size={16} /> Mark All Steps as Completed
+                  </Button>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+        </div>
+
+        <div className="space-y-6">
+          <Card>
+            <CardHeader>
+              <CardTitle>Rewards</CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="flex items-center justify-between mb-4">
+                <span className="font-medium">Points:</span>
+                <Badge variant="outline" className="text-base px-3 py-1">
+                  {task.reward.points}
+                </Badge>
+              </div>
+
+              {task.reward.badges && task.reward.badges.length > 0 && (
+                <div>
+                  <h4 className="font-medium mb-2">Badges:</h4>
+                  <div className="space-y-2">
+                    {task.reward.badges.map((badgeId) => (
+                      <div
+                        key={badgeId}
+                        className="flex items-center p-2 rounded-md bg-yellow-50 border border-yellow-200"
+                      >
+                        <Trophy size={18} className="text-yellow-500 mr-2" />
+                        <span className="text-sm">{badgeId} Badge</span>
+                      </div>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </CardContent>
+          </Card>
+
+          <Card>
+            <CardHeader>
+              <CardTitle className="flex items-center">
+                <ImageIcon className="mr-2" size={18} />
+                Reference Image
+              </CardTitle>
+            </CardHeader>
+            <CardContent>
+              <div className="aspect-video bg-gray-100 rounded-md flex items-center justify-center">
+                <img 
+                  src={task.imageSrc || "/placeholder.svg"} 
+                  alt={`${task.title} reference`}
+                  className="max-w-full max-h-full object-contain"
+                />
+              </div>
+              <p className="text-xs text-center text-gray-500 mt-2">
+                Reference image for {task.title}
+              </p>
+            </CardContent>
+          </Card>
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default TaskDetail;
