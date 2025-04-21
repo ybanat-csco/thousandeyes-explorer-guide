@@ -5,7 +5,7 @@ import { useOnboarding } from "@/context/OnboardingContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
-import { ArrowLeft, Trophy, Check, ImageIcon } from "lucide-react";
+import { ArrowLeft, Trophy } from "lucide-react";
 import StepCarousel from "@/components/StepCarousel";
 
 const TaskDetail: React.FC = () => {
@@ -51,8 +51,8 @@ const TaskDetail: React.FC = () => {
 
           <Card>
             <CardHeader>
+              {/* Removed "Step-by-Step Guide" heading */}
               <CardTitle className="flex items-center">
-                <span>Step-by-Step Guide</span>
                 {task.completed && (
                   <Badge className="ml-2 bg-green-500">Completed</Badge>
                 )}
@@ -68,7 +68,7 @@ const TaskDetail: React.FC = () => {
               {!task.completed && (
                 <div className="mt-8">
                   <Button onClick={handleCompleteAll} className="w-full">
-                    <Check className="mr-2" size={16} /> Mark All Steps as Completed
+                    Mark All Steps as Completed
                   </Button>
                 </div>
               )}
@@ -105,27 +105,6 @@ const TaskDetail: React.FC = () => {
                   </div>
                 </div>
               )}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle className="flex items-center">
-                <ImageIcon className="mr-2" size={18} />
-                Reference Image
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-              <div className="aspect-video bg-gray-100 rounded-md flex items-center justify-center">
-                <img 
-                  src={task.imageSrc || "/placeholder.svg"} 
-                  alt={`${task.title} reference`}
-                  className="max-w-full max-h-full object-contain"
-                />
-              </div>
-              <p className="text-xs text-center text-gray-500 mt-2">
-                Reference image for {task.title}
-              </p>
             </CardContent>
           </Card>
         </div>
