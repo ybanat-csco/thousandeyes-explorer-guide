@@ -1,6 +1,16 @@
 
 import { Task } from "../types";
 
+// Demo images (feel free to change in the future)
+const stepImages = [
+  "/placeholder.svg",
+  "https://images.unsplash.com/photo-1488590528505-98d2b5aba04b",
+  "https://images.unsplash.com/photo-1461749280684-dccba630e2f6",
+  "https://images.unsplash.com/photo-1581091226825-a6a2a5aee158",
+  "https://images.unsplash.com/photo-1531297484001-80022131f5a1",
+  "https://images.unsplash.com/photo-1487058792275-0ad4aaf24ca7"
+];
+
 export const tasks: Task[] = [
   {
     id: "create-first-test",
@@ -10,27 +20,32 @@ export const tasks: Task[] = [
       {
         id: "step-1",
         description: "Navigate to the Tests section in ThousandEyes.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[1],
       },
       {
         id: "step-2",
         description: "Click 'Create New Test' and select 'Page Load'.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[2],
       },
       {
         id: "step-3",
         description: "Enter the URL you want to monitor and configure test settings.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[3],
       },
       {
         id: "step-4",
         description: "Select test locations and frequency.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[4],
       },
       {
         id: "step-5",
         description: "Save and run your test.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[5],
       }
     ],
     reward: {
@@ -47,27 +62,32 @@ export const tasks: Task[] = [
       {
         id: "step-1",
         description: "Navigate to the Views page in ThousandEyes.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[1],
       },
       {
         id: "step-2",
         description: "Select your Page Load test from the dropdown.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[2],
       },
       {
         id: "step-3",
         description: "Explore the Waterfall Diagram to understand load times of different page elements.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[3],
       },
       {
         id: "step-4",
         description: "Check the HTTP Availability section to see uptime metrics.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[4],
       },
       {
         id: "step-5",
         description: "Explore Path Visualization to understand network paths.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[5],
       }
     ],
     reward: {
@@ -85,22 +105,26 @@ export const tasks: Task[] = [
       {
         id: "step-1",
         description: "Go to the Templates section in ThousandEyes.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[1],
       },
       {
         id: "step-2",
         description: "Select an existing template or create a new one based on your test.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[2],
       },
       {
         id: "step-3",
         description: "Configure the template parameters and settings.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[3],
       },
       {
         id: "step-4",
         description: "Deploy the template to create new tests.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[4],
       }
     ],
     reward: {
@@ -117,27 +141,32 @@ export const tasks: Task[] = [
       {
         id: "step-1",
         description: "Navigate to Dashboards section in ThousandEyes.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[1],
       },
       {
         id: "step-2",
         description: "Click 'Create New Dashboard'.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[2],
       },
       {
         id: "step-3",
         description: "Add widgets by selecting from available metrics.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[3],
       },
       {
         id: "step-4",
         description: "Customize layout and visualization types.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[4],
       },
       {
         id: "step-5",
         description: "Save and share your dashboard with team members.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[5],
       }
     ],
     reward: {
@@ -155,27 +184,32 @@ export const tasks: Task[] = [
       {
         id: "step-1",
         description: "Go to Alerts section in ThousandEyes.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[1],
       },
       {
         id: "step-2",
         description: "Click 'Create New Alert Rule'.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[2],
       },
       {
         id: "step-3",
         description: "Select the test and metrics to monitor.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[3],
       },
       {
         id: "step-4",
         description: "Set thresholds and conditions for triggering alerts.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[4],
       },
       {
         id: "step-5",
         description: "Configure notification channels and save the alert rule.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[5],
       }
     ],
     reward: {
@@ -192,27 +226,32 @@ export const tasks: Task[] = [
       {
         id: "step-1",
         description: "Navigate to Endpoint Agents section in ThousandEyes.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[1],
       },
       {
         id: "step-2",
         description: "Review the Endpoint Agent documentation.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[2],
       },
       {
         id: "step-3",
         description: "Download an Endpoint Agent for testing.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[3],
       },
       {
         id: "step-4",
         description: "Deploy the agent on a test machine.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[4],
       },
       {
         id: "step-5",
         description: "Verify the agent is reporting data correctly.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[5],
       }
     ],
     reward: {
@@ -229,27 +268,32 @@ export const tasks: Task[] = [
       {
         id: "step-1",
         description: "Go to Account Settings > Users & Roles in ThousandEyes.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[1],
       },
       {
         id: "step-2",
         description: "Click 'Add New Role'.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[2],
       },
       {
         id: "step-3",
         description: "Define permissions and access levels for the role.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[3],
       },
       {
         id: "step-4",
         description: "Assign users to the newly created role.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[4],
       },
       {
         id: "step-5",
         description: "Test the role permissions to ensure they work as expected.",
-        completed: false
+        completed: false,
+        imageSrc: stepImages[5],
       }
     ],
     reward: {
@@ -260,3 +304,5 @@ export const tasks: Task[] = [
     imageSrc: "/placeholder.svg"
   }
 ];
+
+// NOTE: This file is getting quite long. Consider refactoring it into smaller files for maintainability!

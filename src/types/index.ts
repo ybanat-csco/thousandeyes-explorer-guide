@@ -16,6 +16,7 @@ export interface TaskStep {
   id: string;
   description: string;
   completed: boolean;
+  imageSrc?: string; // add optional image per step
 }
 
 export interface Badge {

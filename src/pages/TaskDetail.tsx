@@ -4,9 +4,9 @@ import { useParams, Link, useNavigate } from "react-router-dom";
 import { useOnboarding } from "@/context/OnboardingContext";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
-import { Checkbox } from "@/components/ui/checkbox";
 import { Badge } from "@/components/ui/badge";
 import { ArrowLeft, Trophy, Check, ImageIcon } from "lucide-react";
+import StepCarousel from "@/components/StepCarousel";
 
 const TaskDetail: React.FC = () => {
   const { taskId } = useParams<{ taskId: string }>();
@@ -59,30 +59,11 @@ const TaskDetail: React.FC = () => {
               </CardTitle>
             </CardHeader>
             <CardContent>
-              <div className="space-y-4">
-                {task.steps.map((step, index) => (
-                  <div key={step.id} className="flex items-start space-x-3">
-                    <div className="flex-shrink-0 mt-0.5">
-                      <Checkbox
-                        id={step.id}
-                        checked={step.completed}
-                        onCheckedChange={() => completeStep(task.id, step.id)}
-                        className="data-[state=checked]:bg-green-500"
-                      />
-                    </div>
-                    <div>
-                      <label
-                        htmlFor={step.id}
-                        className={`text-base font-medium ${
-                          step.completed ? "text-green-600" : ""
-                        }`}
-                      >
-                        Step {index + 1}: {step.description}
-                      </label>
-                    </div>
-                  </div>
-                ))}
-              </div>
+              <StepCarousel
+                steps={task.steps}
+                onStepCheck={(stepId) => completeStep(task.id, stepId)}
+                showCheckbox
+              />
 
               {!task.completed && (
                 <div className="mt-8">

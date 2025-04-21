@@ -5,9 +5,9 @@ import { useOnboarding } from "@/context/OnboardingContext";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Checkbox } from "@/components/ui/checkbox";
 import { CheckCircle, Trophy, ArrowRight } from "lucide-react";
 import { Link } from "react-router-dom";
+import StepCarousel from "./StepCarousel";
 
 interface TaskCardProps {
   task: Task;
@@ -47,24 +47,11 @@ const TaskCard: React.FC<TaskCardProps> = ({ task }) => {
 
       <CardContent className="pb-2">
         {expandDetails ? (
-          <div className="mt-2 space-y-2">
-            {task.steps.map(step => (
-              <div key={step.id} className="flex items-center space-x-2">
-                <Checkbox 
-                  id={step.id}
-                  checked={step.completed}
-                  onCheckedChange={() => toggleStepComplete(step.id)}
-                  className="data-[state=checked]:bg-green-500"
-                />
-                <label
-                  htmlFor={step.id}
-                  className={`text-sm ${step.completed ? "text-slate-600 line-through" : ""}`}
-                >
-                  {step.description}
-                </label>
-              </div>
-            ))}
-          </div>
+          <StepCarousel
+            steps={task.steps}
+            onStepCheck={toggleStepComplete}
+            showCheckbox
+          />
         ) : null}
       </CardContent>
 
