@@ -154,13 +154,68 @@ export const OnboardingProvider: React.FC<{ children: React.ReactNode }> = ({ ch
   };
 
   const completeTask = (taskId: string) => {
-    const task = tasks.find(t => t.id === taskId);
-    if (!task) return;
+    // Find the task first to check if it's already completed
+    const taskToComplete = tasks.find(t => t.id === taskId);
     
-    // Mark all steps as completed
-    task.steps.forEach(step => {
-      completeStep(taskId, step.id);
-    });
+    if (!taskToComplete) return;
+    
+    // Only proceed if the task is not already in completed tasks
+    if (!userProgress.completedTasks.includes(taskId)) {
+      // Update all steps as completed
+      const updatedTasks = tasks.map(task => {
+        if (task.id === taskId) {
+          return {
+            ...task,
+            steps: task.steps.map(step => ({ ...step, completed: true })),
+            completed: true
+          };
+        }
+        return task;
+      });
+      
+      setTasks(updatedTasks);
+      
+      // Award points
+      const newPoints = userProgress.points + taskToComplete.reward.points;
+      
+      // Award badges if any
+      const newEarnedBadges = [...userProgress.earnedBadges];
+      
+      if (taskToComplete.reward.badges) {
+        taskToComplete.reward.badges.forEach(badgeId => {
+          if (!newEarnedBadges.includes(badgeId)) {
+            newEarnedBadges.push(badgeId);
+            
+            // Update badge earned status
+            setBadges(prevBadges => 
+              prevBadges.map(badge => 
+                badge.id === badgeId ? { ...badge, earned: true } : badge
+              )
+            );
+            
+            const earnedBadge = initialBadges.find(b => b.id === badgeId);
+            if (earnedBadge) {
+              toast({
+                title: "Badge Unlocked!",
+                description: `You've earned the ${earnedBadge.name} badge!`,
+              });
+            }
+          }
+        });
+      }
+      
+      // Update user progress
+      setUserProgress({
+        points: newPoints,
+        completedTasks: [...userProgress.completedTasks, taskId],
+        earnedBadges: newEarnedBadges
+      });
+      
+      toast({
+        title: "Task Completed!",
+        description: `You've earned ${taskToComplete.reward.points} points!`,
+      });
+    }
   };
 
   const resetProgress = () => {

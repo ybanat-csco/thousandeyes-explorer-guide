@@ -33,7 +33,10 @@ const TaskDetail: React.FC = () => {
   }
 
   const handleCompleteAll = () => {
-    completeTask(task.id);
+    if (taskId) {
+      completeTask(taskId);
+      navigate('/tasks'); // Redirect after task completion
+    }
   };
 
   return (
