@@ -1,10 +1,11 @@
-
 import React, { useState } from "react";
 import { TaskStep } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { ChevronLeft, ChevronRight } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
+import { useOnboarding } from "@/context/OnboardingContext";
+import { useParams } from "react-router-dom";
 
 interface StepCarouselProps {
   steps: TaskStep[];
@@ -12,7 +13,7 @@ interface StepCarouselProps {
   showCheckbox?: boolean;
   taskTitle?: string;
   resources?: { label: string; href: string }[];
-  stepImageWidthClass?: string; // pass Tailwind sizing from parent
+  stepImageWidthClass?: string;
 }
 
 const StepCarousel: React.FC<StepCarouselProps> = ({
@@ -24,14 +25,22 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
   stepImageWidthClass = "w-full max-w-[520px]",
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
+  const { taskId } = useParams();
+  const { completeTask } = useOnboarding();
+  
   const totalSteps = steps.length;
   const step = steps[currentStep];
   const progressValue = Math.round(((currentStep + 1) / totalSteps) * 100);
+  const isLastStep = currentStep === steps.length - 1;
 
   const handlePrev = () => setCurrentStep((s) => Math.max(0, s - 1));
   const handleNext = () => setCurrentStep((s) => Math.min(steps.length - 1, s + 1));
-
-  // For demo: each step could have its own resources via step.resources in the future
+  
+  const handleFinishTask = () => {
+    if (taskId) {
+      completeTask(taskId);
+    }
+  };
 
   return (
     <div className="flex flex-col items-center gap-8">
@@ -115,9 +124,25 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
             <ChevronLeft size={18} className="mr-1" /> Previous
           </Button>
           <Progress value={progressValue} className="flex-1 mx-4 h-3 rounded-full"/>
-          <Button variant="default" size="sm" onClick={handleNext} disabled={currentStep === totalSteps - 1}>
-            Next Step <ChevronRight size={18} className="ml-1" />
-          </Button>
+          {isLastStep ? (
+            <Button 
+              variant="default" 
+              size="sm" 
+              onClick={handleFinishTask}
+              className="flex items-center"
+            >
+              Finish Task <CheckCircle size={18} className="ml-2" />
+            </Button>
+          ) : (
+            <Button 
+              variant="default" 
+              size="sm" 
+              onClick={handleNext} 
+              disabled={currentStep === totalSteps - 1}
+            >
+              Next Step <ChevronRight size={18} className="ml-1" />
+            </Button>
+          )}
         </div>
         <div className="text-xs text-gray-600 text-center mt-2">
           {progressValue}% Complete
@@ -128,4 +153,3 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
 };
 
 export default StepCarousel;
-
