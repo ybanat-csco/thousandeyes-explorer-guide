@@ -1,3 +1,4 @@
+
 import React, { useState } from "react";
 import { TaskStep } from "@/types";
 import { Button } from "@/components/ui/button";
@@ -5,7 +6,8 @@ import { Progress } from "@/components/ui/progress";
 import { ChevronLeft, ChevronRight, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useOnboarding } from "@/context/OnboardingContext";
-import { useParams } from "react-router-dom";
+import { useParams, useNavigate } from "react-router-dom";
+import { toast } from "@/hooks/use-toast";
 
 interface StepCarouselProps {
   steps: TaskStep[];
@@ -27,6 +29,7 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
   const [currentStep, setCurrentStep] = useState(0);
   const { taskId } = useParams();
   const { completeTask } = useOnboarding();
+  const navigate = useNavigate();
   
   const totalSteps = steps.length;
   const step = steps[currentStep];
@@ -38,7 +41,25 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
   
   const handleFinishTask = () => {
     if (taskId) {
-      completeTask(taskId);
+      try {
+        completeTask(taskId);
+        toast({
+          title: "Task completed!",
+          description: "You've successfully completed this task.",
+        });
+        
+        // Redirect to tasks page after completion
+        setTimeout(() => {
+          navigate("/tasks");
+        }, 1500);
+      } catch (error) {
+        console.error("Error completing task:", error);
+        toast({
+          title: "Error",
+          description: "There was a problem completing the task. Please try again.",
+          variant: "destructive",
+        });
+      }
     }
   };
 
