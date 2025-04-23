@@ -17,6 +17,7 @@ export interface TaskStep {
   description: string;
   completed: boolean;
   imageSrc?: string; // add optional image per step
+  resources?: { title: string; link: string }[]; // add resources for step
 }
 
 export interface Badge {
