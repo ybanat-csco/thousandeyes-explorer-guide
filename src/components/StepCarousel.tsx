@@ -61,7 +61,7 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
     }
   };
 
-  // Extract resources for this step
+  // Extract resources for this step from the step itself (from tasks.ts)
   const stepResources = step.resources || [];
 
   return (
@@ -114,7 +114,7 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
               <LinkIcon size={16} className="mr-2" /> Additional Resources:
             </div>
             <ul className="space-y-1.5">
-              {stepResources.map((resource: { title: string; link: string }) => (
+              {stepResources.map((resource) => (
                 <li key={resource.link} className="mb-1 last:mb-0 pl-2">
                   <a
                     href={resource.link}
