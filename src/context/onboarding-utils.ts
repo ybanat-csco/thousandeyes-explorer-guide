@@ -18,6 +18,7 @@ export const updateBadgesAndProgress = (
       if (!newEarnedBadges.includes(badgeId)) {
         newEarnedBadges.push(badgeId);
         
+        // Update the badge state to reflect it's earned
         setBadges((prevBadges: Badge[]) => 
           prevBadges.map(badge => 
             badge.id === badgeId ? { ...badge, earned: true } : badge
@@ -52,12 +53,14 @@ export const checkForExplorerBadge = (
   const allTasksCompleted = tasks.length > 0 && tasks.every(task => task.completed);
   
   if (allTasksCompleted && !userProgress.earnedBadges.includes("thousandeyes-explorer")) {
-    const updatedBadges = badges.map(badge => 
-      badge.id === "thousandeyes-explorer" ? { ...badge, earned: true } : badge
+    // Update badges state
+    setBadges((prevBadges) => 
+      prevBadges.map(badge => 
+        badge.id === "thousandeyes-explorer" ? { ...badge, earned: true } : badge
+      )
     );
     
-    setBadges(updatedBadges);
-    
+    // Update userProgress state
     setUserProgress((prev: UserProgress) => ({
       ...prev,
       earnedBadges: [...prev.earnedBadges, "thousandeyes-explorer"]

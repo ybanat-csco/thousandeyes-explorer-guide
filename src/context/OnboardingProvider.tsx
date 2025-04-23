@@ -31,6 +31,18 @@ export const OnboardingProvider: React.FC<{ children: React.ReactNode }> = ({ ch
     }
   }, []);
 
+  // Synchronize badges earned state with userProgress
+  useEffect(() => {
+    if (badges.length > 0 && userProgress.earnedBadges.length > 0) {
+      const updatedBadges = badges.map(badge => ({
+        ...badge,
+        earned: userProgress.earnedBadges.includes(badge.id)
+      }));
+      
+      setBadges(updatedBadges);
+    }
+  }, [userProgress.earnedBadges]);
+
   useEffect(() => {
     if (tasks.length > 0 && badges.length > 0) {
       localStorage.setItem(
