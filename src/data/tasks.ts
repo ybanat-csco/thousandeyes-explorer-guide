@@ -670,6 +670,26 @@ export const TASKS_DATA: TaskWithSteps[] = [
   }
 ];
 
+// Convert TaskWithSteps to Task format for the application
+export const tasks = TASKS_DATA.map(task => {
+  return {
+    id: String(task.id),
+    title: task.title,
+    description: task.description,
+    completed: task.completed,
+    reward: {
+      points: 100, // Default points
+      badges: task.badge ? [task.badge] : undefined
+    },
+    steps: task.steps.map((step, index) => ({
+      id: `${task.id}-step-${index + 1}`,
+      description: step.title + ": " + step.description,
+      completed: false,
+      imageSrc: step.image
+    }))
+  };
+});
+
 export const FINAL_BADGE = {
   name: "ThousandEyes Explorer",
   description: "You've completed all onboarding tasks and are ready to utilize the platform effectively!",
