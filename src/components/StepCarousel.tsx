@@ -1,8 +1,9 @@
+
 import React, { useState } from "react";
 import { TaskStep } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
-import { ChevronLeft, ChevronRight, CheckCircle } from "lucide-react";
+import { ChevronLeft, ChevronRight, CheckCircle, Link as LinkIcon } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useOnboarding } from "@/context/useOnboarding";
 import { useParams, useNavigate } from "react-router-dom";
@@ -13,7 +14,6 @@ interface StepCarouselProps {
   onStepCheck?: (stepId: string) => void;
   showCheckbox?: boolean;
   taskTitle?: string;
-  resources?: { label: string; href: string }[];
   stepImageWidthClass?: string;
 }
 
@@ -61,11 +61,8 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
     }
   };
 
-  // Extract resources for this step from the actual step
-  const stepResources =
-    (step as any)?.resources && Array.isArray((step as any).resources)
-      ? (step as any).resources
-      : [];
+  // Extract resources for this step
+  const stepResources = step.resources || [];
 
   return (
     <div className="flex flex-col items-center gap-8">
@@ -109,26 +106,30 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
         <div className="text-base text-gray-800 whitespace-pre-line mb-4 leading-relaxed min-h-[90px] border-t pt-5">
           {step.description.split("\n").slice(1).join("\n")}
         </div>
+        
         {/* Additional Resources PER STEP */}
-        {stepResources.length > 0 && (
-          <div className="mb-4">
-            <div className="font-semibold mb-1 text-[15px] text-dark-purple">Additional Resources:</div>
-            <ul>
-              {stepResources.map((r: { title: string; link: string }) => (
-                <li key={r.link} className="mb-1 last:mb-0">
+        {stepResources && stepResources.length > 0 && (
+          <div className="mb-4 mt-2 p-3 bg-blue-50 rounded-md border border-blue-100">
+            <div className="font-semibold mb-2 text-[15px] text-blue-800 flex items-center">
+              <LinkIcon size={16} className="mr-2" /> Additional Resources:
+            </div>
+            <ul className="space-y-1.5">
+              {stepResources.map((resource: { title: string; link: string }) => (
+                <li key={resource.link} className="mb-1 last:mb-0 pl-2">
                   <a
-                    href={r.link}
+                    href={resource.link}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-blue-700 underline hover:text-blue-900 text-[15px]"
+                    className="text-blue-700 hover:text-blue-900 text-[15px] flex items-center"
                   >
-                    {r.title}
+                    <span className="underline">{resource.title}</span>
                   </a>
                 </li>
               ))}
             </ul>
           </div>
         )}
+        
         {showCheckbox && (
           <div className="mt-2 flex items-center gap-2">
             <input
@@ -143,6 +144,7 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
             </label>
           </div>
         )}
+        
         {/* Step Controls */}
         <div className="mt-6 flex justify-between items-center">
           <Button variant="outline" size="sm" onClick={handlePrev} disabled={currentStep === 0} className="mr-2">
