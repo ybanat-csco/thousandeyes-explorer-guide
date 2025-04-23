@@ -30,7 +30,7 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
   const { taskId } = useParams();
   const { completeTask } = useOnboarding();
   const navigate = useNavigate();
-  
+
   const totalSteps = steps.length;
   const step = steps[currentStep];
   const progressValue = Math.round(((currentStep + 1) / totalSteps) * 100);
@@ -38,7 +38,7 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
 
   const handlePrev = () => setCurrentStep((s) => Math.max(0, s - 1));
   const handleNext = () => setCurrentStep((s) => Math.min(steps.length - 1, s + 1));
-  
+
   const handleFinishTask = () => {
     if (taskId) {
       try {
@@ -47,7 +47,7 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
           title: "Task completed!",
           description: "You've successfully completed this task.",
         });
-        
+
         // Redirect to tasks page after completion
         setTimeout(() => {
           navigate("/tasks");
@@ -62,6 +62,12 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
       }
     }
   };
+
+  // Extract resources for this step (compatibility with type: { resources?: [{title:..., link:...}] })
+  const stepResources =
+    (step as any)?.resources && Array.isArray((step as any).resources)
+      ? (step as any).resources
+      : [];
 
   return (
     <div className="flex flex-col items-center gap-8">
@@ -105,20 +111,20 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
         <div className="text-base text-gray-800 whitespace-pre-line mb-4 leading-relaxed min-h-[90px] border-t pt-5">
           {step.description.split("\n").slice(1).join("\n")}
         </div>
-        {/* Resources for the Step if any (future support for step-level resources) */}
-        {resources && resources.length > 0 && (
+        {/* Additional Resources PER STEP */}
+        {stepResources.length > 0 && (
           <div className="mb-4">
-            <div className="font-semibold mb-1 text-[15px] text-dark-purple">Quick Links:</div>
+            <div className="font-semibold mb-1 text-[15px] text-dark-purple">Additional Resources:</div>
             <ul>
-              {resources.map((r) => (
-                <li key={r.href} className="mb-1 last:mb-0">
+              {stepResources.map((r: { title: string; link: string }) => (
+                <li key={r.link} className="mb-1 last:mb-0">
                   <a
-                    href={r.href}
+                    href={r.link}
                     target="_blank"
                     rel="noopener noreferrer"
                     className="text-blue-700 underline hover:text-blue-900 text-[15px]"
                   >
-                    {r.label}
+                    {r.title}
                   </a>
                 </li>
               ))}
@@ -174,3 +180,4 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
 };
 
 export default StepCarousel;
+
