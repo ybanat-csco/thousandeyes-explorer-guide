@@ -685,7 +685,8 @@ export const tasks = TASKS_DATA.map(task => {
       id: `${task.id}-step-${index + 1}`,
       description: step.title + ": " + step.description,
       completed: false,
-      imageSrc: step.image
+      imageSrc: step.image,
+      resources: step.resources ? step.resources : [],
     }))
   };
 });
