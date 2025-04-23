@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useOnboarding } from "@/context/useOnboarding";
 import { Button } from "@/components/ui/button";
@@ -120,4 +119,3 @@ const Home: React.FC = () => {
 };
 
 export default Home;
-
