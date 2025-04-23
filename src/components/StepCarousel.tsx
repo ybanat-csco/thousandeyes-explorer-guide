@@ -1,4 +1,3 @@
-
 import React, { useState } from "react";
 import { TaskStep } from "@/types";
 import { Button } from "@/components/ui/button";
@@ -23,7 +22,6 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
   onStepCheck,
   showCheckbox = false,
   taskTitle,
-  resources = [],
   stepImageWidthClass = "w-full max-w-[520px]",
 }) => {
   const [currentStep, setCurrentStep] = useState(0);
@@ -63,7 +61,7 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
     }
   };
 
-  // Extract resources for this step (compatibility with type: { resources?: [{title:..., link:...}] })
+  // Extract resources for this step from the actual step
   const stepResources =
     (step as any)?.resources && Array.isArray((step as any).resources)
       ? (step as any).resources
@@ -107,7 +105,7 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
 
       {/* Description and Controls */}
       <div className="flex flex-col w-full px-8 pb-8 max-w-3xl">
-        {/* Multiline description (excluding first line) */}
+        {/* Multiline description */}
         <div className="text-base text-gray-800 whitespace-pre-line mb-4 leading-relaxed min-h-[90px] border-t pt-5">
           {step.description.split("\n").slice(1).join("\n")}
         </div>
@@ -180,4 +178,3 @@ const StepCarousel: React.FC<StepCarouselProps> = ({
 };
 
 export default StepCarousel;
-

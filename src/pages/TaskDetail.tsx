@@ -1,4 +1,3 @@
-
 import React from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useOnboarding } from "@/context/useOnboarding";
@@ -72,7 +71,6 @@ const TaskDetail: React.FC = () => {
                 onStepCheck={(stepId) => completeStep(task.id, stepId)}
                 showCheckbox
                 taskTitle={task.title}
-                resources={resourcesList}
                 stepImageWidthClass="w-full max-w-[680px]"
               />
 
@@ -116,28 +114,6 @@ const TaskDetail: React.FC = () => {
                   </div>
                 </div>
               )}
-            </CardContent>
-          </Card>
-
-          <Card>
-            <CardHeader>
-              <CardTitle>Additional Resources</CardTitle>
-            </CardHeader>
-            <CardContent>
-              <ul className="list-disc pl-4 space-y-1">
-                {resourcesList.map((r) => (
-                  <li key={r.href}>
-                    <a
-                      href={r.href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      className="text-blue-700 underline hover:text-blue-900"
-                    >
-                      {r.label}
-                    </a>
-                  </li>
-                ))}
-              </ul>
             </CardContent>
           </Card>
 
