@@ -10,32 +10,46 @@ const Home: React.FC = () => {
   
   return (
     <div className="container mx-auto px-4 py-8 max-w-5xl">
-      <div className="bg-gradient-to-r from-blue-500 to-purple-600 text-white rounded-xl shadow-lg overflow-hidden">
+      {/* Orange gradient hero section + white text */}
+      <div
+        className="rounded-xl shadow-lg overflow-hidden"
+        style={{
+          background:
+            "linear-gradient(90deg, #F97316 0%, #FEC6A1 100%)",
+          color: "#fff",
+        }}
+      >
         <div className="flex flex-col md:flex-row">
           <div className="p-8 md:p-12 md:w-3/5">
-            <h1 className="text-3xl md:text-4xl font-bold mb-4">Welcome to ThousandEyes Explorer</h1>
+            <h1 className="text-3xl md:text-4xl font-bold mb-4">
+              Welcome to ThousandEyes Explorer
+            </h1>
             <p className="text-lg mb-6 opacity-90">
               Your interactive guide to mastering ThousandEyes platform. Complete tasks, earn badges, and become a monitoring expert.
             </p>
             <div className="flex flex-wrap gap-4">
               <Link to="/tasks">
-                <Button size="lg" className="bg-white text-purple-700 hover:bg-gray-100">
+                <Button size="lg" className="bg-white text-orange-700 hover:bg-orange-100">
                   Start Exploring <ArrowRight className="ml-2" size={18} />
                 </Button>
               </Link>
               <Link to="/badges">
-                <Button size="lg" variant="outline" className="text-white border-white hover:bg-white/20">
+                <Button
+                  size="lg"
+                  variant="outline"
+                  className="text-white border-white hover:bg-white/20"
+                >
                   View Badges <Trophy className="ml-2" size={18} />
                 </Button>
               </Link>
             </div>
           </div>
-          <div className="bg-purple-800/30 p-8 md:p-12 md:w-2/5">
+          <div className="bg-orange-900/30 p-8 md:p-12 md:w-2/5">
             <div className="mb-6">
               <h3 className="text-lg font-semibold mb-2">Your Progress</h3>
               <div className="h-3 bg-white/30 rounded-full overflow-hidden">
                 <div 
-                  className="h-full bg-white transition-all duration-500" 
+                  className="h-full bg-white transition-all duration-500"
                   style={{ width: `${progressPercentage}%` }}
                 ></div>
               </div>
@@ -51,7 +65,7 @@ const Home: React.FC = () => {
                 <span>{userProgress.earnedBadges.length} Badges Earned</span>
               </div>
               <div className="flex items-center gap-2">
-                <div className="h-6 w-6 rounded-full bg-white/80 flex items-center justify-center text-purple-700 font-bold">
+                <div className="h-6 w-6 rounded-full bg-white/80 flex items-center justify-center text-orange-700 font-bold">
                   P
                 </div>
                 <span>{userProgress.points} Points Collected</span>
@@ -65,7 +79,7 @@ const Home: React.FC = () => {
         <h2 className="text-2xl font-bold mb-6">How It Works</h2>
         <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
           <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
-            <div className="h-12 w-12 rounded-full bg-blue-100 text-blue-600 flex items-center justify-center mb-4">
+            <div className="h-12 w-12 rounded-full bg-orange-100 text-orange-600 flex items-center justify-center mb-4">
               <span className="text-xl font-bold">1</span>
             </div>
             <h3 className="text-lg font-semibold mb-2">Complete Tasks</h3>
@@ -74,7 +88,7 @@ const Home: React.FC = () => {
             </p>
           </div>
           <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
-            <div className="h-12 w-12 rounded-full bg-green-100 text-green-600 flex items-center justify-center mb-4">
+            <div className="h-12 w-12 rounded-full bg-orange-200 text-orange-700 flex items-center justify-center mb-4">
               <span className="text-xl font-bold">2</span>
             </div>
             <h3 className="text-lg font-semibold mb-2">Earn Points</h3>
@@ -83,7 +97,7 @@ const Home: React.FC = () => {
             </p>
           </div>
           <div className="bg-white rounded-lg shadow p-6 hover:shadow-md transition-shadow">
-            <div className="h-12 w-12 rounded-full bg-yellow-100 text-yellow-600 flex items-center justify-center mb-4">
+            <div className="h-12 w-12 rounded-full bg-orange-300 text-orange-800 flex items-center justify-center mb-4">
               <span className="text-xl font-bold">3</span>
             </div>
             <h3 className="text-lg font-semibold mb-2">Unlock Badges</h3>
@@ -106,3 +120,4 @@ const Home: React.FC = () => {
 };
 
 export default Home;
+
