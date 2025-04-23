@@ -26,10 +26,10 @@ const App = () => (
             <Route path="/" element={<Layout />}>
               <Route index element={<Home />} />
               <Route path="tasks" element={<Tasks />} />
-              <Route path="task/:taskId" element={<TaskDetail />} />
               <Route path="badges" element={<Badges />} />
               <Route path="resources" element={<Resources />} />
             </Route>
+            <Route path="/task/:taskId" element={<TaskDetail />} />
             <Route path="*" element={<NotFound />} />
           </Routes>
         </BrowserRouter>
@@ -39,3 +39,4 @@ const App = () => (
 );
 
 export default App;
+
