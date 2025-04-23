@@ -1,6 +1,6 @@
 
 import React from "react";
-import { useOnboarding } from "@/context/OnboardingContext";
+import { useOnboarding } from "@/context/useOnboarding";
 
 const ProgressBar: React.FC = () => {
   const { completedTaskCount, totalTaskCount, progressPercentage } = useOnboarding();

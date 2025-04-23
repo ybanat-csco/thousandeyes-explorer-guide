@@ -1,6 +1,6 @@
 
 import React from "react";
-import { useOnboarding } from "@/context/OnboardingContext";
+import { useOnboarding } from "@/context/useOnboarding";
 import BadgeCard from "@/components/BadgeCard";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";

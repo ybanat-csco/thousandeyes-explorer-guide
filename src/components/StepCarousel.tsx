@@ -1,10 +1,11 @@
+
 import React, { useState } from "react";
 import { TaskStep } from "@/types";
 import { Button } from "@/components/ui/button";
 import { Progress } from "@/components/ui/progress";
 import { ChevronLeft, ChevronRight, CheckCircle } from "lucide-react";
 import { Link } from "react-router-dom";
-import { useOnboarding } from "@/context/OnboardingContext";
+import { useOnboarding } from "@/context/useOnboarding";
 import { useParams, useNavigate } from "react-router-dom";
 import { toast } from "@/hooks/use-toast";
 

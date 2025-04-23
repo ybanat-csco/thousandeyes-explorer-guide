@@ -1,6 +1,7 @@
+
 import React from "react";
 import { useParams, Link, useNavigate } from "react-router-dom";
-import { useOnboarding } from "@/context/OnboardingContext";
+import { useOnboarding } from "@/context/useOnboarding";
 import { Button } from "@/components/ui/button";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";

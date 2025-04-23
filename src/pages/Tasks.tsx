@@ -1,6 +1,6 @@
 
 import React from "react";
-import { useOnboarding } from "@/context/OnboardingContext";
+import { useOnboarding } from "@/context/useOnboarding";
 import TaskCard from "@/components/TaskCard";
 import ProgressBar from "@/components/ProgressBar";
 import { Button } from "@/components/ui/button";

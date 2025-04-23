@@ -1,6 +1,7 @@
 
 import { Badge } from "../types";
 
+// Export the badges as both a default and named export for backward compatibility
 export const badges: Badge[] = [
   {
     id: "investigator",
@@ -31,3 +32,6 @@ export const badges: Badge[] = [
     earned: false
   }
 ];
+
+// Add initialBadges as the same as badges for backward compatibility
+export const initialBadges = badges;

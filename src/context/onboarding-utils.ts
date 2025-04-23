@@ -8,7 +8,7 @@ export const updateBadgesAndProgress = (
   task: Task,
   currentProgress: UserProgress,
   badges: Badge[],
-  setBadges: (badges: Badge[]) => void
+  setBadges: React.Dispatch<React.SetStateAction<Badge[]>>
 ): UserProgress => {
   const newPoints = currentProgress.points + task.reward.points;
   const newEarnedBadges = [...currentProgress.earnedBadges];
@@ -18,7 +18,7 @@ export const updateBadgesAndProgress = (
       if (!newEarnedBadges.includes(badgeId)) {
         newEarnedBadges.push(badgeId);
         
-        setBadges(prevBadges => 
+        setBadges((prevBadges: Badge[]) => 
           prevBadges.map(badge => 
             badge.id === badgeId ? { ...badge, earned: true } : badge
           )
@@ -46,8 +46,8 @@ export const checkForExplorerBadge = (
   tasks: Task[],
   userProgress: UserProgress,
   badges: Badge[],
-  setBadges: (badges: Badge[]) => void,
-  setUserProgress: (progress: UserProgress) => void
+  setBadges: React.Dispatch<React.SetStateAction<Badge[]>>,
+  setUserProgress: React.Dispatch<React.SetStateAction<UserProgress>>
 ) => {
   const allTasksCompleted = tasks.length > 0 && tasks.every(task => task.completed);
   
@@ -58,7 +58,7 @@ export const checkForExplorerBadge = (
     
     setBadges(updatedBadges);
     
-    setUserProgress(prev => ({
+    setUserProgress((prev: UserProgress) => ({
       ...prev,
       earnedBadges: [...prev.earnedBadges, "thousandeyes-explorer"]
     }));

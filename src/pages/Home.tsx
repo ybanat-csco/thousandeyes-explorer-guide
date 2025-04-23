@@ -1,6 +1,6 @@
 
 import React from "react";
-import { useOnboarding } from "@/context/OnboardingContext";
+import { useOnboarding } from "@/context/useOnboarding";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import { Trophy, ArrowRight } from "lucide-react";
